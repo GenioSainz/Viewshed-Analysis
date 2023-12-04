@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 from   matplotlib import cm
 
 from   scipy.interpolate import RegularGridInterpolator
-from   view_shed_utils   import peaks,get_visible_area,view_sheed_vec,get_visible_area
+from   viewShed_utils    import peaks,get_visible_area,view_sheed_vec
 
 npx = 300
 a,b = -3,3
@@ -89,7 +89,7 @@ for i,(vi,ai) in enumerate(zip(V_arr,A_arr)):
     ax[i].text(0.05, 0.075, textstr, transform=ax[i].transAxes, weight='bold',va='top',fontsize=8,ha='left', bbox=text_box)
     
 plt.show()
-plt.savefig('../imgs/observer_position.png',dpi = 150)
+plt.savefig('../imgs/observer_position_0.png',dpi = 150)
 
 
 

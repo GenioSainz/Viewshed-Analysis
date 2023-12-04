@@ -5,7 +5,7 @@ Created on Tue Nov 28 15:34:19 2023
 @author: Genio
 """
 
-from view_shed_utils import peaks,view_sheed_vec,calc_distance,get_visible_area
+from viewShed_utils import peaks,view_sheed_vec,calc_distance,get_visible_area
 
 from   scipy.interpolate import RegularGridInterpolator,interp1d
 import numpy as np
