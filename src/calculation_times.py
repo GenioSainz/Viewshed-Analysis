@@ -5,7 +5,6 @@ Created on Mon Dec  4 17:32:25 2023
 @author: Genio
 """
 
-# %%
 import time
 import numpy  as np
 import pandas as pd 
@@ -43,8 +42,7 @@ def view_sheed_vec_times(p1,X,Y,Z,Zi,k=2):
     con = Zt > Zs                    
     bol = np.sum(con, axis=0) > 2     
     V   = np.where(bol, np.nan, Z)    
-    t3e = time.time() - t3
-    
+    t3e = time.time() - t3 
     
     times      = np.array([t0e, t1e, t2e, t3e])
     percents   = times/np.sum(times)

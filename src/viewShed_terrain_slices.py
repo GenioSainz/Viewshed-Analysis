@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Nov 29 16:19:28 2023
-
-@author: Genio
-"""
-# -*- coding: utf-8 -*-
-"""
 Created on Tue Nov 28 15:34:19 2023
 
 @author: Genio
@@ -71,6 +65,7 @@ px2inch  = 1/plt.rcParams['figure.dpi']
 con_leve = np.arange(-7,9)
 
 size_fig = (1200*px2inch,800*px2inch) 
+# size_fig = (1000*px2inch,750*px2inch) 
 fig      = plt.figure(figsize = size_fig,constrained_layout=True )
 
 ax    = ['']*5
@@ -100,6 +95,7 @@ for i,(xi,yi) in enumerate (zip(pts_x ,pts_y)):
     
     xs,ys,zs,zt,dis = profile_view(Zi,p1,[xi,yi])
     
+    ax[0].plot(xs,ys,'w',linestyle='-',linewidth=2)
     ax[0].plot(xs,ys,c[i],linestyle='--',linewidth=2)
     
     ax[0].text(xs[-1]+0.2,ys[-1]   ,s[i],va='center',ha='center', bbox=text_box,size=10)

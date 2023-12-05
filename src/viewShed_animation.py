@@ -16,25 +16,25 @@ from   matplotlib import cm
 import matplotlib.animation as animation
 
 
+# Initialisation of the coordinate grid and the peaks surface
 nframes = 200
 view_h  = 0.5
 a,b = -3,3
-nx  = 200
-ny  = 200
-x,y = np.linspace(a,b,nx),np.linspace(a,b,ny)
+x,y = np.linspace(a,b,nframes),np.linspace(a,b,nframes)
 X,Y = np.meshgrid(x,y,indexing='ij')
 Z   = peaks(X,Y)
 
+# Surface grid interpolator
 Zi  = RegularGridInterpolator((x,y),Z,
                                     method='linear',
                                     bounds_error=False,
                                     fill_value=None)
 
 
+# Calculation of the observer's trajectory AB --> (xi,yi,zi)
 px  = np.array([2.75 ,2.0 ,1.0 ,0.2 ,-0.6,-1.7,-2.2,-1.6,-0.5,-0.3,0.4,1.0,1.8,2.2,1.2,0.4,0.0,-1.5,-2.75])
-py  = np.array([-2.75,-2.0,-2.0,-1.6,-2.5,-2.5,-2.0,-1.4,-0.6,0.0 ,0.4,0.8,1.0,1.5,2.2,2.0,1.6,2.0 ,2.75] )
+py  = np.array([-2.75,-2.0,-2.0,-1.6,-2.5,-2.5,-2.0,-1.4,-0.6,0.0 ,0.4,0.8,1.0,1.5,2.2,2.0,1.6,2.0 ,2.75 ])
 pts = np.array([px,py]).T
-
 
 dis_norm = calc_distance(pts,norm=True)
 t_norm   = np.linspace(0,1,nframes)
@@ -47,6 +47,7 @@ zi        = Zi((xi,yi))+view_h
 pts_profile = np.array([xi,yi,zi]).T
 dis_profile = calc_distance(pts_profile,norm=False)
 
+# Function which saves the animation data
 def get_animation_data():
     V_arr = []
     
@@ -63,9 +64,9 @@ def get_animation_data():
 
 ## get_animation_data()
 
+
 # PLOTS 
 ####################
-
 
 # set defaults
 plt.rcParams.update(plt.rcParamsDefault)
@@ -89,7 +90,7 @@ plt.rc('xtick',labelsize=SMALL_SIZE)
 plt.rc('ytick',labelsize=SMALL_SIZE)
 
 # legend
-plt.rc('legend',fontsize = 15)
+plt.rc('legend',fontsize = 13)
 plt.rc('legend',facecolor='white')
 plt.rc('legend',framealpha=0.9)
 
@@ -98,6 +99,7 @@ plt.rc('lines',linewidth=1.5)
 
 plt.close('all')
 
+# Load animation data
 V_arr = np.load('../data/animation_data.npy')
 area  = [get_visible_area(V) for V in V_arr]
 
@@ -108,11 +110,12 @@ Ncon   = 25
 Aspect = 1
 
 px2inch  = 1/plt.rcParams['figure.dpi']
-size_fig = (1800*px2inch,900*px2inch) 
+size_fig = (1600*px2inch,800*px2inch) 
 fig, ax  = plt.subplots(1,2,constrained_layout=True,figsize=size_fig)
 data     = {'xlabel':'$X$ [m]','xlim':(a,b),
             'ylabel':'$Y$ [m]','ylim':(a,b)}
 
+# contour levels
 CL = np.arange(-7,9)
 
 # subplot(1,2,2)
@@ -140,9 +143,8 @@ ax[0].set(**data)
 ###################
 
 line2 = ax[1].plot(dis_profile,zi,ls='--',c='k',label='$Elevation _ Profile _ AB$')
+scat2 = ax[1].scatter(dis_profile[0],zi[0],s=100,c='w',edgecolors='k',zorder=6,label='Observer Position')
 line3 = ax[1].plot(np.nan,np.nan ,c='b',label='$Visible _ Area$')
-scat2 = ax[1].scatter(dis_profile[0],zi[0],s=100,c='w',edgecolors='k',zorder=6)
-
 
 ax2_color = 'b'
 ax2 = ax[1].twinx()
@@ -160,12 +162,14 @@ ax[1].set_facecolor((k,k,k))
 ax[1].grid(True)
 ax[1].legend()
 
-on_animation   = True
-save_animation = True
 
-if on_animation:
+# Run animation and save
+run_animation   = True
+save_animation = False
 
-    def animate(i):
+if run_animation:
+
+    def animate_fun(i):
         
         ax[0].set_title(f'Visible Area: {area[i]:6.3f} %')
         quad2.set_array(V_arr[i].ravel())
@@ -175,7 +179,7 @@ if on_animation:
         return quad2,scat1,scat2
     
     ani = animation.FuncAnimation(fig=fig,
-                                    func=animate,
+                                    func=animate_fun,
                                     interval=100,
                                     frames=nframes)
 

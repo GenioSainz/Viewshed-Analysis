@@ -20,12 +20,14 @@ def peaks(X,Y):
 
 def roundGrid(x,cellSize):
     '''Round coordinates to regular grid spaced cellSize'''
+    
     return np.round(x/cellSize)*cellSize
 
 
 def get_visible_area(V):
      '''Return the percentage of the visible area with 
         respect to the total area'''
+        
      (rows,cols) = np.shape( np.argwhere(np.isnan(V)) )
      
      return 100*(1-rows/(V.size))
@@ -39,15 +41,15 @@ def calc_distance(pts,norm=False):
        if norm, return normalised distance [0...1]
     '''
        
-    diff       = np.diff(pts,axis=0)**2
-    distance   = np.cumsum( np.sqrt( np.sum(diff,axis=1) ))
-    distance   = np.insert(distance,0,0)
-    
+    diff     = np.diff(pts,axis=0)**2
+    distance = np.cumsum( np.sqrt( np.sum(diff,axis=1) ))
+    distance = np.insert(distance,0,0)
     
     if norm:
-        distance =  distance/ distance[-1]
+        distance = distance/ distance[-1]
     
     return distance
+
 
 def view_sheed_vec(p1,X,Y,Z,Zi,k=2):
     ''' Vectorised implementation of viewSheed
@@ -69,7 +71,7 @@ def view_sheed_vec(p1,X,Y,Z,Zi,k=2):
     t_start = time.time()
     
     (nx,ny) = Z.shape
-    n3Daxis = int(np.max([nx,ny])/k) # Size of the 3D axis 
+    n3Daxis = int(np.max([nx,ny])/k) # Size of the arrays 3D axis 
     
     # T Parametric matrix
     Aa = np.zeros_like(X)            # 2D float array
@@ -128,8 +130,7 @@ def view_sheed_for(p1,X,Y,Z,Zi,k=2):
             
             if np.sum(zTer>zSky)>2:
                 V[i]=np.nan
-            
-           
+                
     V = np.reshape(V,(nx,ny),order='F')  
 
     t_end = time.time() - t_start 

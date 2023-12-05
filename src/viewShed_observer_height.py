@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Nov 29 16:19:28 2023
-
-@author: Genio
-"""
-# -*- coding: utf-8 -*-
-"""
 Created on Tue Nov 28 15:34:19 2023
 
 @author: Genio
