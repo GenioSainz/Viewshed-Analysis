@@ -74,9 +74,9 @@ def view_sheed_vec(p1,X,Y,Z,Zi,k=2):
     n3Daxis = int(np.max([nx,ny])/k) # Size of the arrays 3D axis 
     
     # T Parametric matrix
-    Aa = np.zeros_like(X)            # 2D float array
-    Bb = np.ones_like(X)             # 2D float array
-    T  = np.linspace(Aa,Bb,n3Daxis)  # 3D float array
+    Aa = np.zeros_like(X)            # 2D float array (nx,ny)
+    Bb = np.ones_like(X)             # 2D float array (nx,ny)
+    T  = np.linspace(Aa,Bb,n3Daxis)  # 3D float array 
     
     # Xs,Ys,Zs store the 3D coordinates of the line joining 
     # each point on the surface to the observer's position
