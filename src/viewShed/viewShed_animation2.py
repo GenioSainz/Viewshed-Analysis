@@ -61,7 +61,7 @@ def get_animation_data():
         
         print(f'Frame: {frame+1}')
     
-    np.save('../data/animation_data2.npy', V_arr) # save
+    np.save('./data/animation_data2.npy', V_arr) # save
 
 #get_animation_data()
 
@@ -102,7 +102,7 @@ plt.rc('lines',linewidth=1.5)
 plt.close('all')
 
 # Load animation data
-V_arr = np.load('../data/animation_data2.npy')
+V_arr = np.load('./data/animation_data2.npy')
 area  = [get_visible_area(V) for V in V_arr]
 
 Cmin   = np.min(Z)
@@ -169,7 +169,7 @@ if save_animation:
     
     t_start = time.time()
     
-    ani.save('../imgs/animation_square.gif', writer=writer)
+    ani.save('./imgs/animation_square.gif', writer=writer)
     
     t_end = time.time() - t_start 
     

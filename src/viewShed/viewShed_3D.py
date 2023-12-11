@@ -10,7 +10,7 @@ from   matplotlib import cm
 import numpy as np
 
 from   scipy.interpolate import RegularGridInterpolator
-from   viewShed_utils   import peaks,view_sheed_vec
+from   viewShed_utils    import peaks,view_sheed_vec
 
 # Initialisation of the coordinate grid and the peaks surface
 npx = 200

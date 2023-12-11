@@ -116,7 +116,7 @@ for i,(xi,yi) in enumerate (zip(pts_x ,pts_y)):
     ax[i+1].legend(fontsize = 11)
     
 plt.show()
-plt.savefig('../imgs/terrain_slices.png',dpi = 150)
+plt.savefig('./imgs/terrain_slices.png',dpi = 150)
 
 
 
