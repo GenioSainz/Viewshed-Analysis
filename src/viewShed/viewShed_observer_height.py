@@ -83,7 +83,7 @@ for i,(vi,ai) in enumerate(zip(V_arr,A_arr)):
     ax[i].text(0.05, 0.075, textstr, transform=ax[i].transAxes, weight='bold',va='top',fontsize=8,ha='left', bbox=text_box)
     
 plt.show()
-plt.savefig('./imgs/observer_position_0.png',dpi = 150)
+plt.savefig('../../imgs/observer_position_5.png',dpi = 200)
 
 
 

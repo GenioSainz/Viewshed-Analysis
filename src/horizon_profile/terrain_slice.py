@@ -27,7 +27,7 @@ plt.rc('axes'  ,titlesize=MEDIUM_SIZE)
 plt.rc('figure',titlesize=BIGGER_SIZE)
 
 # xy-labells
-plt.rc('axes',labelsize=MEDIUM_SIZE)
+plt.rc('axes',labelsize=MEDIUM_SIZE,labelweight='bold')
 
 # xy-ticks
 plt.rc('xtick',labelsize=SMALL_SIZE)
@@ -36,7 +36,7 @@ plt.rc('ytick',labelsize=SMALL_SIZE)
 # legend
 plt.rc('legend',fontsize = SMALL_SIZE)
 plt.rc('legend',facecolor='white')
-plt.rc('legend',framealpha=0.5)
+plt.rc('legend',framealpha=1)
 
 # lines
 plt.rc('lines',linewidth=1.5)
@@ -63,7 +63,7 @@ def get_horizon(xo,ho,x,h):
         return x_horizon,h_horizon,elevation_angle,ind1,ind2,LOS
   
   
-MS = 50
+MS = 40
 ML = MS*2.5
 
 n  = 90
@@ -76,32 +76,43 @@ px2inch  = 1/plt.rcParams['figure.dpi']
 size_fig = (1600*px2inch,800*px2inch) 
 fig, ax  = plt.subplots(1,1,constrained_layout=True,figsize=size_fig)
 
+fig_name = 1
+ylim     = (0,90)
 
-xo = 0
-ho = 1
+if fig_name:
+    xo,ho = 0.0,1.2
+else:
+    xo,ho = 0.0,0.6
+  
+
+
 x_horizon,h_horizon,elevation_angle,ind1,ind2,LOS = get_horizon(xo,ho,x,h)
 
-ax.scatter(xo,ho              ,s=MS,label='Observer Position')
-ax.scatter(x,h                ,s=MS,label='Terrain Profile')
+ax.grid(True)
+ax.set_axisbelow(True)
+
+ax.scatter(xo,ho              ,s=MS,label='Observer Position ho',zorder=5)
+ax.scatter(x,h                ,s=MS,label='Terrain Profile h')
 ax.scatter(x[ind1],h[ind1]    ,s=MS,label='Pts1 = h>ho and Diff(h)>0')
 ax.scatter(x[ind2],h[ind2]    ,s=ML,label='Pts2 = Cummax(pts1) and Diff( Cummax(pts1) )>0',marker='s',c='none',edgecolors='k',linewidths=1.5)
 ax.scatter(x_horizon,h_horizon,s=ML,label='Horizon Point',marker='s',c='none',edgecolors='r',linewidths=1.5)
-ax.plot(x,LOS,'r--'                  ,label='Line Of Sight',zorder=0)
-ax.scatter(np.nan,np.nan,s=MS,label='Elevation Angle From Observer Position To Pts2',c='m')
+ax.plot(x,LOS,'r-'                ,label='Line Of Sight',zorder=0.7)
+ax.scatter(np.nan,np.nan      ,s=MS,label='Elevation Angle From Observer Position To Pts2',c='m')
 
 right_ax_color = '#ff7f0e'
 ax.set_xlabel('Distance [m]')
-ax.set_ylabel('Terrain Altitude [m]',color=right_ax_color)
+ax.set_ylabel('Terrain Profile [m]',color=right_ax_color)
 ax.tick_params(axis='y', labelcolor=right_ax_color)
-ax.legend(loc='upper left')
+ax.legend(loc='upper left', prop={'weight':'bold',})
+
 
 ax_right = ax.twinx()
 ax_right.tick_params(axis='y', labelcolor='m')
 ax_right.scatter(x[ind2],elevation_angle,s=MS,c='m')
-ax_right.set_ylim(5,30)
+ax_right.set_ylim(ylim)
 ax_right.set_ylabel('Elevation angle [º]',color='m')
 
 
 plt.show()
-
+plt.savefig(f'../../imgs/horizon_profile_{fig_name}.png',dpi = 150)
 

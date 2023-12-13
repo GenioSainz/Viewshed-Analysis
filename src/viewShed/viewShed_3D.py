@@ -13,7 +13,7 @@ from   scipy.interpolate import RegularGridInterpolator
 from   viewShed_utils    import peaks,view_sheed_vec
 
 # Initialisation of the coordinate grid and the peaks surface
-npx = 200
+npx = 250
 a,b = -3,3
 nx  = npx
 ny  = npx
@@ -33,7 +33,6 @@ yp = -2
 view_h = 1.5
 p1     = np.array([xp,yp,Zi((xp,yp))+view_h])
 V      = view_sheed_vec(p1,X,Y,Z,Zi)
-
 
 plt.close('all')
 
@@ -70,16 +69,15 @@ ax[1].set_xlim(a,b),ax[1].set_ylim(a,b),ax[1].set_zlim(Cmin,Cmax)
 ax[1].tick_params(colors='w'),ax[1].set_box_aspect(aspect)
 
 
-
 from matplotlib.lines   import Line2D
 from matplotlib.patches import Patch
 
-p1 = Line2D([np.nan],[np.nan],marker='o',color='w', mfc='w',mec='k')
-p2 = Patch(facecolor='gray', edgecolor='gray',alpha=0.5)
+L1 = Line2D([np.nan],[np.nan],marker='o',color='w', mfc='w',mec='k')
+P2 = Patch(facecolor='gray', edgecolor='gray',alpha=0.5)
 
-plots  = [p1,p2]
+plots  = [L1,P2]
 labels = ['Observer Position', 'Not Visible Areas']
 fig.legend(plots, labels,loc='upper center',fontsize=14)
    
 plt.show()
-plt.savefig('../imgs/3D_comparison.png',dpi = 150)
+plt.savefig("../../imgs/3D_comparison.png",dpi = 150)
